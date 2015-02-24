@@ -1,0 +1,120 @@
+[View Javadoc](../../../../../../apidocs/org/apache/struts/webapp/dispatch/LookupDispatchExampleAction.html.md)
+
+
+    1   /*
+    2    * $Id: LookupDispatchExampleAction.java 471754 2006-11-06 14:55:09Z husted $
+    3    *
+    4    * Licensed to the Apache Software Foundation (ASF) under one
+    5    * or more contributor license agreements.  See the NOTICE file
+    6    * distributed with this work for additional information
+    7    * regarding copyright ownership.  The ASF licenses this file
+    8    * to you under the Apache License, Version 2.0 (the
+    9    * "License"); you may not use this file except in compliance
+    10   * with the License.  You may obtain a copy of the License at
+    11   *
+    12   *  http://www.apache.org/licenses/LICENSE-2.0
+    13   *
+    14   * Unless required by applicable law or agreed to in writing,
+    15   * software distributed under the License is distributed on an
+    16   * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    17   * KIND, either express or implied.  See the License for the
+    18   * specific language governing permissions and limitations
+    19   * under the License.
+    20   */
+    21  package org.apache.struts.webapp.dispatch;
+    22  
+    23  import java.util.Map;
+    24  import java.util.HashMap;
+    25  import javax.servlet.http.HttpServletRequest;
+    26  import javax.servlet.http.HttpServletResponse;
+    27  import org.apache.struts.actions.LookupDispatchAction;
+    28  import org.apache.struts.action.ActionForm;
+    29  import org.apache.struts.action.ActionForward;
+    30  import org.apache.struts.action.ActionMapping;
+    31  import org.apache.struts.action.ActionMessage;
+    32  import org.apache.struts.action.ActionMessages;
+    33  
+    34  /**
+    35   * Example LookupDispatchAction.
+    36   *
+    37   * @version $Rev: 471754 $ $Date: 2006-11-06 08:55:09 -0600 (Mon, 06 Nov 2006) $
+    38   */
+    39  public class LookupDispatchExampleAction extends LookupDispatchAction {
+    40  
+    41      private Map keyMethodMap = new HashMap();
+    42      private int fooCount;
+    43      private int barCount;
+    44  
+    45      /**
+    46       * Constructor - populate the key method map.
+    47       */
+    48      public LookupDispatchExampleAction() {
+    49          keyMethodMap.put("button.foo.label", "doFoo");
+    50          keyMethodMap.put("button.bar.label", "doBar");
+    51      }
+    52  
+    53      /**
+    54       * Example "foo" method.
+    55       *
+    56       * @param mapping The ActionMapping used to select this instance
+    57       * @param form The optional ActionForm bean for this request
+    58       * @param request The servlet request we are processing
+    59       * @param response The servlet response we are creating
+    60       *
+    61       * @exception Exception if business logic throws an exception
+    62       */
+    63      public ActionForward doFoo(ActionMapping mapping,
+    64                                 ActionForm form,
+    65                                 HttpServletRequest request,
+    66                                 HttpServletResponse response)
+    67          throws Exception {
+    68  
+    69          fooCount++;
+    70  
+    71          ActionMessages messages = new ActionMessages();
+    72          messages.add("foo", new ActionMessage("count.foo.message", fooCount+""));
+    73          saveMessages(request, messages);
+    74  
+    75          return (mapping.findForward("success"));
+    76  
+    77      }
+    78  
+    79      /**
+    80       * Example "bar" method.
+    81       *
+    82       * @param mapping The ActionMapping used to select this instance
+    83       * @param form The optional ActionForm bean for this request
+    84       * @param request The servlet request we are processing
+    85       * @param response The servlet response we are creating
+    86       *
+    87       * @exception Exception if business logic throws an exception
+    88       */
+    89      public ActionForward doBar(ActionMapping mapping,
+    90                                 ActionForm form,
+    91                                 HttpServletRequest request,
+    92                                 HttpServletResponse response)
+    93          throws Exception {
+    94          barCount++;
+    95  
+    96          ActionMessages messages = new ActionMessages();
+    97          messages.add("bar", new ActionMessage("count.bar.message", barCount+""));
+    98          saveMessages(request, messages);
+    99  
+    100         return (mapping.findForward("success"));
+    101 
+    102     }
+    103 
+    104     /**
+    105      * Provides the mapping from resource key to method name.
+    106      *
+    107      * @return Resource key / method name map.
+    108      */
+    109     protected Map getKeyMethodMap() {
+    110         return keyMethodMap;
+    111     }
+    112 
+    113 }
+
+------------------------------------------------------------------------
+
+This page was automatically generated by [Maven](http://maven.apache.org/)
